@@ -21,11 +21,10 @@ A PDF version is also available [here](../files/CV.pdf).
  * Wei Wang, Luqi Wang, Ruidong Xue, Haolin Chen, Ruipeng Guo, Yongmin Liu, and Jing Chen, (2017). Unidirectional Excitation of Radiative-Loss-Free Surface Plasmon Polaritons in PT-Symmetric Systems. Physical review letters, 119(7), 077401. 
  * Ruidong Xue, Wei Wang, Luqi Wang, Haolin Chen, Ruipeng Guo, and Jing Chen (2017). Localization and oscillation of optical beams in Moiré lattices. Optics express, 25(5), 5788-5796. 
  
- ## Preprints
+ ##  Preprints
  * Haolin Chen, Luis Rademacher. Learning Gaussian Mixtures via Tensor Decomposition, in preparation.
 
 # Programming Skills
 * Prominent in numerical simulation and building machine learning or deep learning models using MATLAB.
-* Familiar with building machine learning pipeline using Python, as well as TensorFloworPyTorch. 
+* Familiar with building machine learning pipeline using Python and TensorFlow. 
 * Familiar with C++, and implementation of traditional algorithms.
-
