@@ -25,3 +25,8 @@ group :jekyll_plugins do
   gem 'jekyll-sitemap'
   gem 'hawkins'
 end
+
+# Some dependencies from bundlers website
+gem 'nokogiri'
+gem 'rack', '~> 2.0.1'
+gem 'rspec'
