@@ -22,7 +22,7 @@ A PDF version is also available [here](../files/CV.pdf).
  * Ruidong Xue, Wei Wang, Luqi Wang, Haolin Chen, Ruipeng Guo, and Jing Chen (2017). Localization and oscillation of optical beams in Moiré lattices. Optics express, 25(5), 5788-5796. 
  
  ##  Preprints
- * Haolin Chen, Luis Rademacher. Learning Gaussian Mixtures via Tensor Decomposition, in preparation.
+ * Haolin Chen, Luis Rademacher. Tensor decomposition, blind deconvolution and Gaussian mixture models, in preparation.
 
 # Programming Skills
 * Prominent in numerical simulation and building machine learning or deep learning models using MATLAB.

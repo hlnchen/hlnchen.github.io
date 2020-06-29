@@ -13,5 +13,5 @@ location: "Davis, CA"
 
  This class is online. Most information will be released on Canvas.
 
-I will hold office hours on: **TBA** via ZOOM meeting.
+I will hold office hours via ZOOM meeting.
 ## Useful resources
