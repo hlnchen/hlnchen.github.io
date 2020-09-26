@@ -22,4 +22,4 @@ A PDF version is also available [here](../files/CV.pdf).
  * Ruidong Xue, Wei Wang, Luqi Wang, Haolin Chen, Ruipeng Guo, and Jing Chen (2017). Localization and oscillation of optical beams in Moiré lattices. Optics express, 25(5), 5788-5796. 
  
 ##  Preprints
- * Haolin Chen, Luis Rademacher. Overcomplete order-3 tensor decomposition, blind deconvolution and Gaussian mixture models, [arXiv](https://arxiv.org/abs/2007.08133).
+ * Haolin Chen, Luis Rademacher. Overcomplete order-3 tensor decomposition, blind deconvolution and Gaussian mixture models, [arXiv](https://arxiv.org/abs/2007.08133)[Talk Slides](../files/MLSS_Slides.pdf).
