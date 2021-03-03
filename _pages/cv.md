@@ -9,7 +9,7 @@ redirect_from:
 
 {% include base_path %}
 
-A PDF version is also available [here](../files/CV.pdf).
+A PDF version is also available [here](../files/Resume_1.1.pdf).
 
 # Education
 * B.S. in Physics, Nankai University, 2017
