@@ -14,6 +14,6 @@ This is Haolin Chen's personal website. I am a PhD candidate in applied math who
 I study the mathematical foundation of machine learning and data sciences. I am interested in the learning representation of data, especially in high dimension.
 
 ## News
-I will be teaching MAT167 in the Fall quarter. Please refer to the [Canvas](https://canvas.ucdavis.edu/courses/487065) page for course details.
+I will be teaching MAT135A for the Fall quarter. My office hour is 4pm-5pm every Thursday.
 
-Just got back from (virtual) [MLSS2020](http://mlss.tuebingen.mpg.de/)!
+I join [Outreach.io](https://www.outreach.io) as a data scientist from July to the end of 2021!
