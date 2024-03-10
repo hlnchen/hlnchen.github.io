@@ -82,12 +82,12 @@ analytics:
 author:
   name             : "Haolin Chen"
   avatar           : "profile.png"
-  bio              : "Applied math PhD student at UC Davis. Interested in learning theory and optimization."
-  location         : "Davis, California"
+  bio              : "Applied Scientist at Salesforce AI Research. Amateur guitarist."
+  location         : "Palo, Alto"
   employer         :
   pubmed           : 
-  googlescholar    : 
-  email            : "hlnchen dot ucdavis dot edu"
+  googlescholar    : "https://scholar.google.com/citations?user=l92piNoAAAAJ"
+  email            : "haolin dot chen dot salesforce dot com"
   researchgate     :  # example: "https://www.researchgate.net/profile/yourprofile"
   uri              :
   bitbucket        :

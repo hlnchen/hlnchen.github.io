@@ -8,12 +8,9 @@ redirect_from:
   - /about.html
 ---
 
-This is Haolin Chen's personal website. I am a PhD candidate in applied math who is fortunate to be advised by Prof. Luis Rademacher.
+This is Haolin Chen's personal website. Currently I am an Applied Scientist at Salesforce AI Research. Prior to that, I was a Data Scientist at Outreach.io.
+I received my PhD degree in applied math in 2022, advised by Prof. Luis Rademacher.
 
 ## Research interests
-I study the mathematical foundation of machine learning and data sciences. I am interested in the learning representation of data, especially in high dimension.
-
-## News
-I will be teaching MAT135A for the Fall quarter. My office hour is 4pm-5pm every Thursday.
-
-I join [Outreach.io](https://www.outreach.io) as a data scientist from July to the end of 2021!
+During my PhD, I studied the mathematical foundation of machine learning and data sciences. Currently, my focus is on building autonomous AI agents.
+I am interested different areas of AI/ML, including learning the representation of data, high dimension statistics, natural language processing and large language models.
