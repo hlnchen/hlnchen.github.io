@@ -59,8 +59,9 @@ const About = () => {
                 On the research side, I led the research of <ProjectLink project={projects.latro} />, an reinforcement learning based method for reasoning in LLMs. I also supervised the research of <ProjectLink project={projects.webscaleRL} />, a framework that synthesizes high quality RL training data at pretraining data scale.
                 I lead the development of <ProjectLink project={projects.coda} />, a light-weight diffusion language model for coding.
                 I've also worked on <ProjectLink project={projects.xlam} /> model series, a family of advanced LLMs for agentic use case, and <ProjectLink project={projects.apigenMT} />, a framework for systematically synthesize multi-turn agentic trajectories.
+                <br />
                 On the product side, I prototyped various agents for use cases including sales pitching and planning. I also integrated <ProjectLink project={projects.xlam} /> & <ProjectLink project={projects.apigenMT} /> into Salesforce's environments.
-
+                <br />
                 During my PhD, I studied the mathematical foundation of machine learning and data sciences and developed algorithms for tensor decomposition.
               </p>
             </Card>
