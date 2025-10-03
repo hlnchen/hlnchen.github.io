@@ -3,54 +3,44 @@ import { ExternalLink } from "lucide-react";
 
 const publications = [
   {
-    title: "Overcomplete order-3 tensor decomposition, blind deconvolution and Gaussian mixture models",
-    authors: "Haolin Chen, Luis Rademacher",
-    year: "2020",
-    link: "https://arxiv.org/abs/2007.08133",
+    title: "Language Models are Hidden Reasoners: Unlocking Latent Reasoning Capabilities via Self-Rewarding",
+    year: "2024",
+    link: "https://arxiv.org/abs/2411.04282",
+    venue: "arXiv preprint",
     type: "Preprint"
   },
   {
-    title: "Trends in worldwide research in inflammatory bowel disease over the period 2012–2021: A bibliometric study",
-    authors: "Li, K., Feng, C., Chen, H., Feng, Y., & Li, J.",
-    year: "2022",
-    venue: "Frontiers in Medicine",
-    type: "Journal Article"
+    title: "CoDA: Coding LM via Diffusion Adaptation",
+    year: "2025",
+    link: "https://github.com/SalesforceAIResearch/CoDA/blob/main/technical_report.pdf",
+    venue: "Salesforce AI Research",
+    type: "Technical Report"
   },
   {
-    title: "Exploring the research landscape of the past, present, and future of thyroid nodules",
-    authors: "Chen, P., Feng, C., Huang, L., Chen, H., Feng, Y., & Chang, S.",
-    year: "2022",
-    venue: "Frontiers in Medicine",
-    type: "Journal Article"
+    title: "Webscale-RL: Automated Data Pipeline for Scaling RL Data to Pretraining Levels",
+    year: "2025"
   },
   {
-    title: "A Bibliometric Analysis of the Landscape of Parathyroid Carcinoma Research Based on the PubMed (2000–2021)",
-    authors: "Feng, C., Tian, C., Huang, L., Chen, H., Feng, Y., & Chang, S.",
-    year: "2022",
-    venue: "Frontiers in Oncology",
-    type: "Journal Article"
+    title: "xLAM: A Family of Large Action Models to Empower AI Agent Systems",
+    year: "2024",
+    link: "https://arxiv.org/abs/2409.03215",
+    venue: "arXiv preprint",
+    type: "Preprint"
   },
   {
-    title: "The Research Landscape of Multiple Endocrine Neoplasia Type 1 (2000–2021): A Bibliometric Analysis",
-    authors: "Feng, C., Chen, H., Huang, L., Feng, Y., & Chang, S.",
-    year: "2022",
-    venue: "Frontiers in Medicine",
-    type: "Journal Article"
+    title: "APIGen-MT: Agentic Pipeline for Multi-Turn Data Generation via Simulated Agent-Human Interplay",
+    year: "2025",
+    link: "https://arxiv.org/abs/2504.03601",
+    venue: "arXiv preprint",
+    type: "Preprint"
   },
   {
-    title: "Unidirectional Excitation of Radiative-Loss-Free Surface Plasmon Polaritons in PT-Symmetric Systems",
-    authors: "Wei Wang, Luqi Wang, Ruidong Xue, Haolin Chen, Ruipeng Guo, Yongmin Liu, and Jing Chen",
-    year: "2017",
-    venue: "Physical Review Letters",
+    title: "Overcomplete order-3 tensor decomposition, blind deconvolution and Gaussian mixture models",
+    year: "2020",
+    link: "https://arxiv.org/abs/2007.08133",
+    venue: "SIAM Journal on Mathematics of Data Science",
     type: "Journal Article"
   },
-  {
-    title: "Localization and oscillation of optical beams in Moiré lattices",
-    authors: "Ruidong Xue, Wei Wang, Luqi Wang, Haolin Chen, Ruipeng Guo, and Jing Chen",
-    year: "2017",
-    venue: "Optics Express",
-    type: "Journal Article"
-  }
 ];
 
 const Publications = () => {

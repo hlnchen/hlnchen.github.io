@@ -60,7 +60,9 @@ const About = () => {
                 I lead the development of <ProjectLink project={projects.coda} />, a light-weight diffusion language model for coding.
                 I've also worked on <ProjectLink project={projects.xlam} /> model series, a family of advanced LLMs for agentic use case, and <ProjectLink project={projects.apigenMT} />, a framework for systematically synthesize multi-turn agentic trajectories.
                 <br />
-                On the product side, I prototyped various agents for use cases including sales pitching and planning. I also integrated <ProjectLink project={projects.xlam} /> & <ProjectLink project={projects.apigenMT} /> into Salesforce's environments.
+                <br />
+                On the product side, I prototyped various agents for use cases including <span className="italic">sales pitching and planning</span>. I also integrated <ProjectLink project={projects.xlam} /> & <ProjectLink project={projects.apigenMT} /> into Salesforce's environments.
+                <br />
                 <br />
                 During my PhD, I studied the mathematical foundation of machine learning and data sciences and developed algorithms for tensor decomposition.
               </p>
