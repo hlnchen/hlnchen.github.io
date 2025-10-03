@@ -57,7 +57,7 @@ const Publications = () => {
   return (
     <section id="publications" className="container py-16 bg-muted/30">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold mb-8">Publications</h2>
+        <h2 className="text-3xl font-bold mb-8">Selected Publications</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {publications.map((pub, index) => (
