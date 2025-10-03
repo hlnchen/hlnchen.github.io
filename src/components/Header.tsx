@@ -46,7 +46,7 @@ const Header = () => {
               <Github className="h-4 w-4" />
             </a>
             <a 
-              href="https://www.linkedin.com/in/haolin-chen/" 
+              href="https://www.linkedin.com/in/hlnchen/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-foreground transition-colors"
@@ -55,7 +55,7 @@ const Header = () => {
               <Linkedin className="h-4 w-4" />
             </a>
             <a 
-              href="https://scholar.google.com/citations?user=YOUR_ID" 
+              href="https://scholar.google.com/citations?user=l92piNoAAAAJ" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-foreground transition-colors"

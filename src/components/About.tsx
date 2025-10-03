@@ -38,7 +38,7 @@ const About = () => {
         <div className="flex flex-col md:flex-row gap-8 items-start">
           <div className="flex-shrink-0">
             <img
-              src="/public/thumbnail.jpg"
+              src="/thumbnail.jpg"
               alt="Haolin Chen"
               className="w-32 h-32 rounded-full object-cover border-4 border-card shadow-lg"
             />
