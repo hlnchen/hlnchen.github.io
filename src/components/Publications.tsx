@@ -3,22 +3,25 @@ import { ExternalLink } from "lucide-react";
 
 const publications = [
   {
-    title: "Language Models are Hidden Reasoners: Unlocking Latent Reasoning Capabilities via Self-Rewarding",
-    year: "2024",
-    link: "https://arxiv.org/abs/2411.04282",
-    venue: "arXiv preprint",
-    type: "Preprint"
-  },
-  {
     title: "CoDA: Coding LM via Diffusion Adaptation",
     year: "2025",
-    link: "https://github.com/SalesforceAIResearch/CoDA/blob/main/technical_report.pdf",
+    link: "https://www.arxiv.org/abs/2510.03270",
     venue: "Salesforce AI Research",
     type: "Technical Report"
   },
   {
     title: "Webscale-RL: Automated Data Pipeline for Scaling RL Data to Pretraining Levels",
-    year: "2025"
+    year: "2025",
+    link: "https://huggingface.co/papers/2510.06499",
+    venue: "arXiv preprint",
+    type: "Preprint"
+  },
+    {
+    title: "Language Models are Hidden Reasoners: Unlocking Latent Reasoning Capabilities via Self-Rewarding",
+    year: "2024",
+    link: "https://arxiv.org/abs/2411.04282",
+    venue: "arXiv preprint",
+    type: "Preprint"
   },
   {
     title: "xLAM: A Family of Large Action Models to Empower AI Agent Systems",

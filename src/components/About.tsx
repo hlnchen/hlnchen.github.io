@@ -7,7 +7,7 @@ const projects = {
   },
   webscaleRL: {
     name: "Webscale-RL",
-    url: "#"
+    url: "https://huggingface.co/datasets/Salesforce/Webscale-RL"
   },
   coda: {
     name: "CoDA",
