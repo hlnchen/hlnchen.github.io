@@ -22,7 +22,7 @@ describe("profile data", () => {
     const patent = publications.find(({ kind }) => kind === "patent");
 
     expect(patent).toMatchObject({
-      year: 2026,
+      year: "2026",
       type: "Pending Patent Application",
       venue: "U.S. Patent Application Publication No. US 2026/0093997 A1",
     });
@@ -73,7 +73,11 @@ describe("profile data", () => {
 
   it("exposes current contact links", () => {
     expect(contact.email).toBe("cn.holiechen@gmail.com");
-    expect(contact.scholar).toContain("user=l92piNoAAAAJ");
+    expect(contact.github).toBe("https://github.com/hlnchen");
+    expect(contact.linkedin).toBe("https://www.linkedin.com/in/hlnchen/");
+    expect(contact.scholar).toBe(
+      "https://scholar.google.com/citations?user=l92piNoAAAAJ",
+    );
     expect(contact.cv).toBe("/Haolin_Chen_CV.pdf");
   });
 });

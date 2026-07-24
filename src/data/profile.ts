@@ -10,7 +10,7 @@ export interface ResourceLink {
 export interface Publication {
   title: string;
   authors: string;
-  year: number;
+  year: string;
   venue: string;
   type: string;
   kind: PublicationKind;
@@ -66,7 +66,7 @@ export const publications: Publication[] = [
     title: "Cura 1T: Specialized Model for Agentic Healthcare",
     authors:
       "Haolin Chen, Leon Qi, Steve Brown, Deon Metelski, Tao Xia, Joonyul Lee, Qixuan Wang, Kevin Riley, Frank Wang, and Weiran Yao",
-    year: 2026,
+    year: "2026",
     venue: "arXiv preprint",
     type: "Technical Report",
     kind: "paper",
@@ -82,7 +82,7 @@ export const publications: Publication[] = [
     title:
       "χ-Bench: Can AI Agents Automate End-to-End, Long-Horizon, Policy-Rich Healthcare Workflows?",
     authors: "Haolin Chen et al.",
-    year: 2026,
+    year: "2026",
     venue: "arXiv preprint",
     type: "Preprint",
     kind: "paper",
@@ -99,7 +99,7 @@ export const publications: Publication[] = [
       "Systems and Methods for Generative Language Model Reasoning Process Optimization",
     authors:
       "Haolin Chen, Yihao Feng, Akshara Prabhakar, Zuxin Liu, Weiran Yao, Ricky Ho, Lik Mui, Silvio Savarese, Huan Wang, and Caiming Xiong",
-    year: 2026,
+    year: "2026",
     venue: "U.S. Patent Application Publication No. US 2026/0093997 A1",
     type: "Pending Patent Application",
     kind: "patent",
@@ -115,7 +115,7 @@ export const publications: Publication[] = [
     title: "CoDA: Coding LM via Diffusion Adaptation",
     authors:
       "Haolin Chen, Shiyu Wang, Can Qin, Bo Pang, Zuxin Liu, Jielin Qiu, Jianguo Zhang, Yuyu Zhou, Zeyuan Chen, Ran Xu, Shelby Heinecke, Silvio Savarese, Caiming Xiong, Huan Wang, and Weiran Yao",
-    year: 2025,
+    year: "2025",
     venue: "arXiv preprint",
     type: "Technical Report",
     kind: "paper",
@@ -137,7 +137,7 @@ export const publications: Publication[] = [
       "Webscale-RL: Automated Data Pipeline for Scaling RL Data to Pretraining Levels",
     authors:
       "Zhepeng Cen, Haolin Chen, Shiyu Wang, Zuxin Liu, Zhiwei Liu, Ding Zhao, Caiming Xiong, Huan Wang, and Weiran Yao",
-    year: 2026,
+    year: "2026",
     venue: "ICLR 2026",
     type: "Conference Paper",
     kind: "paper",
@@ -164,7 +164,7 @@ export const publications: Publication[] = [
       "Language Models are Hidden Reasoners: Unlocking Latent Reasoning Capabilities via Self-Rewarding",
     authors:
       "Haolin Chen, Yihao Feng, Zuxin Liu, Weiran Yao, Akshara Prabhakar, Shelby Heinecke, Ricky Ho, Phil Mui, Silvio Savarese, Caiming Xiong, and Huan Wang",
-    year: 2024,
+    year: "2024",
     venue: "arXiv preprint",
     type: "Preprint",
     kind: "paper",
@@ -185,7 +185,7 @@ export const publications: Publication[] = [
     title: "xLAM: A Family of Large Action Models to Empower AI Agent Systems",
     authors:
       "Jianguo Zhang, Tian Lan, Ming Zhu, Zuxin Liu, Thai Hoang, Sachin Kokane, Weiran Yao, Juntao Tan, Akshara Prabhakar, Haolin Chen, et al.",
-    year: 2025,
+    year: "2025",
     venue: "NAACL 2025",
     type: "Conference Paper",
     kind: "paper",
@@ -207,7 +207,7 @@ export const publications: Publication[] = [
       "APIGen-MT: Agentic Pipeline for Multi-Turn Data Generation via Simulated Agent-Human Interplay",
     authors:
       "Akshara Prabhakar, Zuxin Liu, Ming Zhu, Jianguo Zhang, Tulika Awalgaonkar, Shiyu Wang, Zhiwei Liu, Haolin Chen, et al.",
-    year: 2025,
+    year: "2025",
     venue: "NeurIPS 2025 Datasets & Benchmarks Track",
     type: "Conference Paper",
     kind: "paper",
@@ -223,7 +223,7 @@ export const publications: Publication[] = [
     title:
       "Overcomplete order-3 tensor decomposition, blind deconvolution and Gaussian mixture models",
     authors: "Haolin Chen and Luis Rademacher",
-    year: 2022,
+    year: "2022",
     venue: "SIAM Journal on Mathematics of Data Science",
     type: "Journal Article",
     kind: "paper",
