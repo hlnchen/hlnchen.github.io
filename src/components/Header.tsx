@@ -1,4 +1,5 @@
-import { Github, Linkedin, Mail, BookOpen } from "lucide-react";
+import { contact } from "@/data/profile";
+import { BookOpen, FileText, Github, Linkedin, Mail } from "lucide-react";
 
 const Header = () => {
   return (
@@ -7,61 +8,68 @@ const Header = () => {
         <div className="flex items-center gap-2">
           <h1 className="text-xl font-semibold">Haolin Chen</h1>
         </div>
-        
+
         <nav className="flex items-center gap-6">
-          <a 
-            href="#about" 
+          <a
+            href="#about"
             className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             About
           </a>
-          <a 
-            href="#publications" 
+          <a
+            href="#publications"
             className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             Publications
           </a>
-          <a 
-            href="#experience" 
+          <a
+            href="#experience"
             className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             Experience
           </a>
-          
+
           <div className="flex items-center gap-3 ml-4 border-l border-border pl-4">
-            <a 
-              href="mailto:haolin.chen@salesforce.com" 
+            <a
+              href={`mailto:${contact.email}`}
               className="text-muted-foreground hover:text-foreground transition-colors"
               aria-label="Email"
             >
               <Mail className="h-4 w-4" />
             </a>
-            <a 
-              href="https://github.com/hlnchen" 
-              target="_blank" 
+            <a
+              href={contact.github}
+              target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-foreground transition-colors"
               aria-label="GitHub"
             >
               <Github className="h-4 w-4" />
             </a>
-            <a 
-              href="https://www.linkedin.com/in/hlnchen/" 
-              target="_blank" 
+            <a
+              href={contact.linkedin}
+              target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-foreground transition-colors"
               aria-label="LinkedIn"
             >
               <Linkedin className="h-4 w-4" />
             </a>
-            <a 
-              href="https://scholar.google.com/citations?user=l92piNoAAAAJ" 
-              target="_blank" 
+            <a
+              href={contact.scholar}
+              target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-foreground transition-colors"
               aria-label="Google Scholar"
             >
               <BookOpen className="h-4 w-4" />
+            </a>
+            <a
+              href={contact.cv}
+              className="text-muted-foreground hover:text-foreground transition-colors"
+              aria-label="Download CV"
+            >
+              <FileText className="h-4 w-4" />
             </a>
           </div>
         </nav>

@@ -1,31 +1,14 @@
 import { Card } from "@/components/ui/card";
+import { projects, type Project } from "@/data/profile";
 
-const projects = {
-  latro: {
-    name: "LaTRO",
-    url: "https://github.com/SalesforceAIResearch/LaTRO"
-  },
-  webscaleRL: {
-    name: "Webscale-RL",
-    url: "https://huggingface.co/datasets/Salesforce/Webscale-RL"
-  },
-  coda: {
-    name: "CoDA",
-    url: "https://github.com/SalesforceAIResearch/CoDA"
-  },
-  xlam: {
-    name: "xLAM",
-    url: "https://github.com/SalesforceAIResearch/xLAM"
-  },
-  apigenMT: {
-    name: "APIGen-MT",
-    url: "https://arxiv.org/abs/2504.03601"
-  }
-};
-
-function ProjectLink({ project }: { project: typeof projects[keyof typeof projects] }) {
+function ProjectLink({ project }: { project: Project }) {
   return (
-    <a href={project.url} className="font-bold text-accent hover:underline">
+    <a
+      href={project.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="font-bold text-accent hover:underline"
+    >
       {project.name}
     </a>
   );
@@ -47,24 +30,41 @@ const About = () => {
           <div className="flex-1">
             <h2 className="text-3xl font-bold mb-4">About Me</h2>
             <p className="text-lg text-muted-foreground mb-4 leading-relaxed">
-              I am a Senior Applied Scientist at <span className="font-medium text-foreground">Salesforce AI Research</span>.
-              Prior to that, I was a Data Scientist at Outreach.io. I received my PhD degree in applied math in 2022,
-              advised by Prof. Luis Rademacher.
+              I am Head of Research at{" "}
+              <span className="font-medium text-foreground">actAVA AI</span>,
+              where I lead research on specialized language models and agentic
+              healthcare systems. Previously, I was a Senior Applied Scientist at
+              Salesforce AI Research and a Data Scientist at Outreach.io. I
+              received my Ph.D. in applied mathematics in 2022, advised by Prof.
+              Luis Rademacher.
             </p>
 
             <Card className="p-6 border border-border bg-card hover:bg-card-hover transition-colors">
               <h3 className="text-xl font-semibold mb-3">Research Interests</h3>
               <p className="text-muted-foreground leading-relaxed">
-                At Salesforce AI Research, my focus includes RL & reasoning in LLMs, agentic AI, and diffusion language models.
-                On the research side, I led the research of <ProjectLink project={projects.latro} />, an reinforcement learning based method for reasoning in LLMs. I also supervised the research of <ProjectLink project={projects.webscaleRL} />, a framework that synthesizes high quality RL training data at pretraining data scale.
-                I lead the development of <ProjectLink project={projects.coda} />, a light-weight diffusion language model for coding.
-                I've also worked on <ProjectLink project={projects.xlam} /> model series, a family of advanced LLMs for agentic use case, and <ProjectLink project={projects.apigenMT} />, a framework for systematically synthesize multi-turn agentic trajectories.
+                At actAVA AI, I lead <ProjectLink project={projects.cura} />, a
+                healthcare-specialized language model, and{" "}
+                <ProjectLink project={projects.chiBench} />, a benchmark for
+                long-horizon, policy-rich healthcare workflows.
                 <br />
                 <br />
-                On the product side, I prototyped various agents for use cases including <span className="italic">sales pitching and planning</span>. I also integrated <ProjectLink project={projects.xlam} /> & <ProjectLink project={projects.apigenMT} /> into Salesforce's environments.
+                At Salesforce AI Research, I led{" "}
+                <ProjectLink project={projects.latro} />, a reinforcement
+                learning method for reasoning in language models; supervised{" "}
+                <ProjectLink project={projects.webscaleRL} />, a framework for
+                synthesizing RL training data at pretraining scale; and led{" "}
+                <ProjectLink project={projects.coda} />, a lightweight diffusion
+                language model for coding. I also worked on the{" "}
+                <ProjectLink project={projects.xlam} /> model family and{" "}
+                <ProjectLink project={projects.apigenMT} />, a framework for
+                synthesizing multi-turn agent trajectories.
                 <br />
                 <br />
-                During my PhD, I studied the mathematical foundation of machine learning and data sciences and developed algorithms for tensor decomposition.
+                On the product side, I prototyped agents for sales pitching,
+                planning, and customer-service use cases, and integrated xLAM and
+                APIGen-MT into Salesforce environments. During my Ph.D., I studied
+                the mathematical foundations of machine learning and developed
+                algorithms for tensor decomposition.
               </p>
             </Card>
           </div>
