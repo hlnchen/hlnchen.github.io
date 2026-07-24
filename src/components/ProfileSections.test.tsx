@@ -1,6 +1,8 @@
+import { Buffer } from "node:buffer";
 import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { renderToStaticMarkup } from "react-dom/server";
+import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
 import { describe, expect, it } from "vitest";
 
 import {
@@ -92,6 +94,52 @@ const expectTextInOrder = (html: string, values: readonly string[]) => {
   });
 };
 
+const hasShallowPdfSignals = (asset: Uint8Array) =>
+  Buffer.from(asset.subarray(0, 5)).toString("ascii") === "%PDF-" &&
+  asset.byteLength > 50_000;
+
+const inspectCvPdf = async (asset: Uint8Array) => {
+  if (!hasShallowPdfSignals(asset)) {
+    throw new Error("Invalid PDF header or size");
+  }
+
+  const trailer = Buffer.from(asset.subarray(-1_024)).toString("ascii");
+  if (!trailer.includes("%%EOF")) {
+    throw new Error("Missing PDF end-of-file marker");
+  }
+
+  const loadingTask = getDocument({
+    data: new Uint8Array(asset),
+    verbosity: 0,
+  });
+
+  try {
+    const document = await loadingTask.promise;
+    const pages: string[] = [];
+
+    for (let pageNumber = 1; pageNumber <= document.numPages; pageNumber += 1) {
+      const page = await document.getPage(pageNumber);
+      const content = await page.getTextContent();
+      pages.push(
+        content.items
+          .filter((item) => "str" in item)
+          .map((item) => item.str)
+          .join(" "),
+      );
+    }
+
+    return {
+      pageCount: document.numPages,
+      text: pages
+        .join("\n")
+        .replace(/\s+/g, " ")
+        .replace(/\s*-\s*/g, "-"),
+    };
+  } finally {
+    await loadingTask.destroy();
+  }
+};
+
 describe("Header", () => {
   const headerHtml = renderToStaticMarkup(<Header />);
 
@@ -168,13 +216,38 @@ describe("Header", () => {
 });
 
 describe("downloadable CV", () => {
-  it("ships a nontrivial PDF asset", () => {
+  it("ships the reviewed three-page CV with current and preserved work", async () => {
     const cvPath = resolve("public/Haolin_Chen_CV.pdf");
 
     expect(existsSync(cvPath)).toBe(true);
     const cvAsset = readFileSync(cvPath);
-    expect(cvAsset.subarray(0, 5).toString("ascii")).toBe("%PDF-");
-    expect(cvAsset.byteLength).toBeGreaterThan(50_000);
+    const inspection = await inspectCvPdf(cvAsset);
+
+    expect(inspection.pageCount).toBe(3);
+    [
+      "Cura 1T",
+      "χ-Bench",
+      "US 2026/0093997 A1",
+      "arXiv:2409.03215",
+      "Overcomplete order-3 tensor decomposition",
+    ].forEach((requiredText) => {
+      expect(inspection.text).toContain(requiredText);
+    });
+  });
+
+  it("rejects parser-invalid data that passes shallow integrity checks", async () => {
+    const cvAsset = readFileSync(resolve("public/Haolin_Chen_CV.pdf"));
+    const corruptAsset = Buffer.alloc(cvAsset.byteLength, 0x20);
+
+    Buffer.from("%PDF-1.7\n").copy(corruptAsset);
+    Buffer.from("\n%%EOF\n").copy(
+      corruptAsset,
+      corruptAsset.byteLength - Buffer.byteLength("\n%%EOF\n"),
+    );
+
+    expect(hasShallowPdfSignals(corruptAsset)).toBe(true);
+    expect(corruptAsset.subarray(-7).toString("ascii")).toBe("\n%%EOF\n");
+    await expect(inspectCvPdf(corruptAsset)).rejects.toThrow();
   });
 });
 

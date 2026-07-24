@@ -989,27 +989,29 @@ git commit -m "feat: synchronize website profile with CV"
 
 **Files:**
 - Modify: `src/components/ProfileSections.test.tsx`
+- Modify: `package.json`
+- Modify: `package-lock.json`
 - Create: `public/Haolin_Chen_CV.pdf`
-- Read: `/Users/haolin.chen/repos/cv/main.tex`
+- Read: `/Users/haolin.chen/repos/cv/.worktrees/cv-refresh/main.tex`
 
-- [ ] **Step 1: Add a failing asset-presence test**
+**Published asset provenance:**
 
-Add these imports to `src/components/ProfileSections.test.tsx`:
+- Source worktree: `/Users/haolin.chen/repos/cv/.worktrees/cv-refresh`
+- Source commit: `6a62bb4d880b4b1a9964cafa426a3abff7510ffd`
+- Engine: `latexmk -lualatex`
+- Output: a searchable, three-page Letter PDF copied to
+  `public/Haolin_Chen_CV.pdf`
 
-```tsx
-import { existsSync } from "node:fs";
-import { resolve } from "node:path";
-```
+- [ ] **Step 1: Add a failing parser-backed asset test**
 
-Add this test inside the `describe` block:
+Install `pdfjs-dist` as a development dependency and add a test that parses the
+asset in Node without Poppler. Assert exactly three pages and extracted text for
+Cura 1T, χ-Bench, `US 2026/0093997 A1`, `arXiv:2409.03215`, and the preserved
+order-3 tensor publication. Include a corrupt, PDF-sized fixture that preserves
+the `%PDF-` header and `%%EOF` marker so the old shallow checks pass while the
+parser rejects it.
 
-```tsx
-it("ships the downloadable CV asset", () => {
-  expect(existsSync(resolve("public/Haolin_Chen_CV.pdf"))).toBe(true);
-});
-```
-
-- [ ] **Step 2: Run the test to verify it fails**
+- [ ] **Step 2: Run the test to verify the shallow implementation fails**
 
 Run:
 
@@ -1017,17 +1019,23 @@ Run:
 npm test -- src/components/ProfileSections.test.tsx
 ```
 
-Expected: FAIL at `ships the downloadable CV asset`.
+Expected: FAIL because shallow header and size checks cannot report page count,
+extract the required text, or reject the corrupt fixture.
 
 - [ ] **Step 3: Compile the CV from the verified source**
 
 Run:
 
 ```bash
-website_cv_build_dir=$(mktemp -d /tmp/website-cv-build.XXXXXX)
+website_cv_source_dir=/Users/haolin.chen/repos/cv/.worktrees/cv-refresh
+website_cv_source_commit=6a62bb4d880b4b1a9964cafa426a3abff7510ffd
+test "$(git -C "$website_cv_source_dir" rev-parse HEAD)" = \
+  "$website_cv_source_commit"
+mkdir -p tmp/pdfs
+website_cv_build_dir=$(mktemp -d "$PWD/tmp/pdfs/website-cv-build.XXXXXX")
 latexmk -lualatex -interaction=nonstopmode -halt-on-error \
   -output-directory="$website_cv_build_dir" \
-  /Users/haolin.chen/repos/cv/main.tex
+  "$website_cv_source_dir/main.tex"
 test -s "$website_cv_build_dir/main.pdf"
 cp "$website_cv_build_dir/main.pdf" public/Haolin_Chen_CV.pdf
 ```
@@ -1042,7 +1050,8 @@ Run:
 npm test -- src/components/ProfileSections.test.tsx
 ```
 
-Expected: five passing tests.
+Expected: fourteen passing tests, including parser-backed page-count, text, and
+corruption checks.
 
 - [ ] **Step 5: Confirm the published PDF contains the new entries**
 
@@ -1057,8 +1066,10 @@ Expected: all three patterns appear.
 - [ ] **Step 6: Commit the downloadable CV**
 
 ```bash
-git add public/Haolin_Chen_CV.pdf src/components/ProfileSections.test.tsx
-git commit -m "feat: publish downloadable CV"
+git add public/Haolin_Chen_CV.pdf src/components/ProfileSections.test.tsx \
+  package.json package-lock.json \
+  docs/superpowers/plans/2026-07-24-personal-website-refresh.md
+git commit -m "feat: publish refreshed CV PDF"
 ```
 
 ### Task 5: Run Full Verification and Inspect Responsive Layouts
