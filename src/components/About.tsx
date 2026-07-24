@@ -30,7 +30,7 @@ const About = () => {
           <div className="flex-1">
             <h2 className="text-3xl font-bold mb-4">About Me</h2>
             <p className="text-lg text-muted-foreground mb-4 leading-relaxed">
-              I am Head of Research at{" "}
+              I am the founding research scientist at{" "}
               <span className="font-medium text-foreground">actAVA AI</span>,
               where I lead research on specialized language models and agentic
               healthcare systems. Previously, I was a Senior Applied Scientist at
@@ -60,11 +60,7 @@ const About = () => {
                 synthesizing multi-turn agent trajectories.
                 <br />
                 <br />
-                On the product side, I prototyped agents for sales pitching,
-                planning, and customer-service use cases, and integrated xLAM and
-                APIGen-MT into Salesforce environments. During my Ph.D., I studied
-                the mathematical foundations of machine learning and developed
-                algorithms for tensor decomposition.
+                My interests lie across language modeling, agentic AI and reinforcement learning.
               </p>
             </Card>
           </div>
