@@ -1,3 +1,5 @@
+import { existsSync, readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 
@@ -162,6 +164,17 @@ describe("Header", () => {
 
     expect(cvAnchor).toContain("lucide-file-text");
     expect(cvAnchor).toContain('aria-label="Download CV"');
+  });
+});
+
+describe("downloadable CV", () => {
+  it("ships a nontrivial PDF asset", () => {
+    const cvPath = resolve("public/Haolin_Chen_CV.pdf");
+
+    expect(existsSync(cvPath)).toBe(true);
+    const cvAsset = readFileSync(cvPath);
+    expect(cvAsset.subarray(0, 5).toString("ascii")).toBe("%PDF-");
+    expect(cvAsset.byteLength).toBeGreaterThan(50_000);
   });
 });
 
