@@ -117,7 +117,6 @@ describe("profile data", () => {
       { title: "Senior Applied Scientist", period: "Aug 2025 - Feb 2026" },
       { title: "Applied Scientist", period: "Jan 2024 - Jul 2025" },
       { title: "Data Scientist", period: "Aug 2022 - Sep 2023" },
-      { title: "Data Scientist Intern", period: "Jul 2021 - Dec 2021" },
     ]);
     expect(education).toHaveLength(3);
   });
@@ -407,11 +406,6 @@ export const workExperience = [
     company: "Outreach.io",
     period: "Aug 2022 - Sep 2023",
   },
-  {
-    title: "Data Scientist Intern",
-    company: "Outreach.io",
-    period: "Jul 2021 - Dec 2021",
-  },
 ] as const;
 
 export const education = [
@@ -667,7 +661,6 @@ describe("profile sections", () => {
     expect(html).toContain("Mar 2026 - Present");
     expect(html).toContain("Aug 2025 - Feb 2026");
     expect(html).toContain("Jan 2024 - Jul 2025");
-    expect(html).toContain("Data Scientist Intern");
     expect(html).toContain("Ph.D. in Applied Mathematics");
   });
 
