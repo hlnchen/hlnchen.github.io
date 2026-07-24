@@ -997,10 +997,11 @@ git commit -m "feat: synchronize website profile with CV"
 **Published asset provenance:**
 
 - Source worktree: `/Users/haolin.chen/repos/cv/.worktrees/cv-refresh`
-- Source commit: `6a62bb4d880b4b1a9964cafa426a3abff7510ffd`
+- Source commit: `3afecef5267d320125a78ad6db5b4dcfaf25dfe6`
 - Engine: `latexmk -lualatex`
 - Output: a searchable, three-page Letter PDF copied to
   `public/Haolin_Chen_CV.pdf`
+- xLAM citation: `2024 arXiv technical report, arXiv:2409.03215.`
 
 - [ ] **Step 1: Add a failing parser-backed asset test**
 
@@ -1028,7 +1029,7 @@ Run:
 
 ```bash
 website_cv_source_dir=/Users/haolin.chen/repos/cv/.worktrees/cv-refresh
-website_cv_source_commit=6a62bb4d880b4b1a9964cafa426a3abff7510ffd
+website_cv_source_commit=3afecef5267d320125a78ad6db5b4dcfaf25dfe6
 test "$(git -C "$website_cv_source_dir" rev-parse HEAD)" = \
   "$website_cv_source_commit"
 mkdir -p tmp/pdfs
