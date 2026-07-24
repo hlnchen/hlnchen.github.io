@@ -114,7 +114,7 @@ export const publications: Publication[] = [
   {
     title: "CoDA: Coding LM via Diffusion Adaptation",
     authors:
-      "Haolin Chen, Shiyu Wang, Can Qin, Bo Pang, Zuxin Liu, Jielin Qiu, Jianguo Zhang, Yuyu Zhou, Zeyuan Chen, Ran Xu, Shelby Heinecke, Silvio Savarese, Caiming Xiong, Huan Wang, and Weiran Yao",
+      "Haolin Chen, Shiyu Wang, Can Qin, Bo Pang, Zuxin Liu, Jielin Qiu, Jianguo Zhang, Yingbo Zhou, Zeyuan Chen, Ran Xu, Shelby Heinecke, Silvio Savarese, Caiming Xiong, Huan Wang, and Weiran Yao",
     year: "2025",
     venue: "arXiv preprint",
     type: "Technical Report",
@@ -184,10 +184,10 @@ export const publications: Publication[] = [
   {
     title: "xLAM: A Family of Large Action Models to Empower AI Agent Systems",
     authors:
-      "Jianguo Zhang, Tian Lan, Ming Zhu, Zuxin Liu, Thai Hoang, Sachin Kokane, Weiran Yao, Juntao Tan, Akshara Prabhakar, Haolin Chen, et al.",
-    year: "2025",
-    venue: "NAACL 2025",
-    type: "Conference Paper",
+      "Jianguo Zhang, Tian Lan, Ming Zhu, Zuxin Liu, Thai Hoang, Shirley Kokane, Weiran Yao, Juntao Tan, Akshara Prabhakar, Haolin Chen, Zhiwei Liu, Yihao Feng, Tulika Awalgaonkar, Rithesh Murthy, Eric Hu, Zeyuan Chen, Ran Xu, Juan Carlos Niebles, Shelby Heinecke, Huan Wang, Silvio Savarese, and Caiming Xiong",
+    year: "2024",
+    venue: "arXiv preprint",
+    type: "Technical Report",
     kind: "paper",
     links: [
       {
