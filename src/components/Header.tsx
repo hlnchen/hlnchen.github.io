@@ -9,27 +9,27 @@ const Header = () => {
           <h1 className="text-xl font-semibold">Haolin Chen</h1>
         </div>
 
-        <nav className="flex items-center gap-6">
+        <nav className="flex items-center gap-2 sm:gap-6">
           <a
             href="#about"
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+            className="hidden text-sm font-medium text-muted-foreground hover:text-foreground transition-colors sm:inline"
           >
             About
           </a>
           <a
             href="#publications"
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+            className="hidden text-sm font-medium text-muted-foreground hover:text-foreground transition-colors sm:inline"
           >
             Publications
           </a>
           <a
             href="#experience"
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+            className="hidden text-sm font-medium text-muted-foreground hover:text-foreground transition-colors sm:inline"
           >
             Experience
           </a>
 
-          <div className="flex items-center gap-3 ml-4 border-l border-border pl-4">
+          <div className="flex items-center gap-2 sm:ml-4 sm:gap-3 sm:border-l sm:border-border sm:pl-4">
             <a
               href={`mailto:${contact.email}`}
               className="text-muted-foreground hover:text-foreground transition-colors"

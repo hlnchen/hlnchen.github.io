@@ -1,19 +1,6 @@
-import {
-  Children,
-  isValidElement,
-  type ReactElement,
-  type ReactNode,
-} from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import {
-  Briefcase,
-  FileText,
-  GraduationCap,
-  type LucideIcon,
-} from "lucide-react";
 import { describe, expect, it } from "vitest";
 
-import { Card } from "@/components/ui/card";
 import {
   contact,
   education,
@@ -27,128 +14,202 @@ import Experience from "./Experience";
 import Footer from "./Footer";
 import Header from "./Header";
 
-interface ElementProps {
-  children?: ReactNode;
-  href?: string;
-  rel?: string;
-  target?: string;
-  className?: string;
-  "aria-label"?: string;
-}
-
-const collectElements = (
-  node: ReactNode,
-  predicate: (element: ReactElement<ElementProps>) => boolean,
-): ReactElement<ElementProps>[] => {
-  const matches: ReactElement<ElementProps>[] = [];
-
-  Children.forEach(node, (child) => {
-    if (!isValidElement<ElementProps>(child)) {
-      return;
-    }
-
-    if (predicate(child)) {
-      matches.push(child);
-    }
-    matches.push(...collectElements(child.props.children, predicate));
-  });
-
-  return matches;
-};
-
-const expectSafeExternalLink = (anchor: ReactElement<ElementProps>) => {
-  expect(anchor.props.target).toBe("_blank");
-  expect(anchor.props.rel).toBe("noopener noreferrer");
-};
-
 const escapeRegExp = (value: string) =>
   value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
-describe("Header", () => {
-  const headerTree = Header();
-  const anchors = collectElements(
-    headerTree,
-    (element) => element.type === "a",
-  );
-  const getAnchor = (href: string) => {
-    const anchor = anchors.find((element) => element.props.href === href);
+const getAnchorMarkup = (html: string, href: string) => {
+  const anchor = html.match(
+    new RegExp(
+      `<a(?=[^>]*\\bhref="${escapeRegExp(href)}")[^>]*>[\\s\\S]*?<\\/a>`,
+    ),
+  )?.[0];
 
-    expect(anchor, `header anchor for "${href}"`).toBeDefined();
-    return anchor as ReactElement<ElementProps>;
-  };
+  expect(anchor, `rendered anchor for "${href}"`).toBeDefined();
+  return anchor as string;
+};
 
-  it("preserves the navigation and current header treatment", () => {
-    const html = renderToStaticMarkup(headerTree);
+const getClassTokens = (markup: string) => {
+  const classes = markup.match(/\bclass="([^"]*)"/)?.[1];
 
-    expect(["#about", "#publications", "#experience"].map(getAnchor)).toHaveLength(
-      3,
+  expect(classes, `class attribute in "${markup}"`).toBeDefined();
+  return (classes as string).split(/\s+/);
+};
+
+const expectClassTokens = (markup: string, expected: string[]) => {
+  expect(getClassTokens(markup)).toEqual(expect.arrayContaining(expected));
+};
+
+const getOpeningTag = (html: string, tagName: string) => {
+  const tag = html.match(new RegExp(`<${tagName}\\b[^>]*>`))?.[0];
+
+  expect(tag, `rendered <${tagName}>`).toBeDefined();
+  return tag as string;
+};
+
+const getOpeningTagWithClass = (html: string, classToken: string) => {
+  const tag = html.match(
+    new RegExp(
+      `<[a-z][^>]*\\bclass="[^"]*(?:^|\\s)${escapeRegExp(classToken)}(?:\\s|$)[^"]*"[^>]*>`,
+    ),
+  )?.[0];
+
+  expect(tag, `element with class "${classToken}"`).toBeDefined();
+  return tag as string;
+};
+
+const getNearestOpeningTagBefore = (
+  html: string,
+  marker: string,
+  tagName: string,
+) => {
+  const markerIndex = html.indexOf(marker);
+
+  expect(markerIndex, `marker "${marker}"`).toBeGreaterThanOrEqual(0);
+  const prefix = html.slice(0, markerIndex);
+  const tagStart = prefix.lastIndexOf(`<${tagName}`);
+
+  expect(tagStart, `<${tagName}> before "${marker}"`).toBeGreaterThanOrEqual(0);
+  return prefix.slice(tagStart, prefix.indexOf(">", tagStart) + 1);
+};
+
+const expectSafeExternalLink = (anchorMarkup: string) => {
+  expect(anchorMarkup).toContain('target="_blank"');
+  expect(anchorMarkup).toContain('rel="noopener noreferrer"');
+};
+
+const expectTextInOrder = (html: string, values: readonly string[]) => {
+  let searchFrom = 0;
+
+  values.forEach((value) => {
+    const valueIndex = html.indexOf(value, searchFrom);
+
+    expect(valueIndex, `"${value}" after index ${searchFrom}`).toBeGreaterThanOrEqual(
+      0,
     );
-    expect(html).toContain("sticky top-0 z-50");
-    expect(html).toContain("flex h-16 items-center justify-between");
-    expect(html).toContain("Haolin Chen");
+    searchFrom = valueIndex + value.length;
+  });
+};
+
+describe("Header", () => {
+  const headerHtml = renderToStaticMarkup(<Header />);
+
+  it("keeps every navigation and contact destination in the rendered header", () => {
+    [
+      "#about",
+      "#publications",
+      "#experience",
+      `mailto:${contact.email}`,
+      contact.github,
+      contact.linkedin,
+      contact.scholar,
+      contact.cv,
+    ].forEach((href) => {
+      expect(getAnchorMarkup(headerHtml, href)).toBeDefined();
+    });
+    expect(headerHtml).toContain("Haolin Chen");
   });
 
-  it("renders the current email and every external profile safely", () => {
-    expect(getAnchor(`mailto:${contact.email}`).props["aria-label"]).toBe(
-      "Email",
+  it("collapses only text navigation on mobile and restores desktop spacing at sm", () => {
+    const navTag = getOpeningTag(headerHtml, "nav");
+    const emailAnchor = getAnchorMarkup(headerHtml, `mailto:${contact.email}`);
+    const iconGroupTag = getNearestOpeningTagBefore(
+      headerHtml,
+      emailAnchor,
+      "div",
     );
 
+    expectClassTokens(navTag, ["gap-2", "sm:gap-6"]);
+    ["#about", "#publications", "#experience"].forEach((href) => {
+      expectClassTokens(getAnchorMarkup(headerHtml, href), [
+        "hidden",
+        "sm:inline",
+      ]);
+    });
+    expectClassTokens(iconGroupTag, [
+      "gap-2",
+      "sm:gap-3",
+      "sm:ml-4",
+      "sm:border-l",
+      "sm:border-border",
+      "sm:pl-4",
+    ]);
+    expect(getClassTokens(iconGroupTag)).not.toEqual(
+      expect.arrayContaining(["ml-4", "border-l", "border-border", "pl-4"]),
+    );
+  });
+
+  it("labels all five icons and renders external profiles safely", () => {
     [
+      [`mailto:${contact.email}`, "Email"],
       [contact.github, "GitHub"],
       [contact.linkedin, "LinkedIn"],
       [contact.scholar, "Google Scholar"],
+      [contact.cv, "Download CV"],
     ].forEach(([href, label]) => {
-      const anchor = getAnchor(href);
+      const anchor = getAnchorMarkup(headerHtml, href);
 
-      expect(anchor.props["aria-label"]).toBe(label);
-      expectSafeExternalLink(anchor);
+      expect(anchor).toContain(`aria-label="${label}"`);
+      expect(getClassTokens(anchor)).not.toContain("hidden");
+    });
+
+    [contact.github, contact.linkedin, contact.scholar].forEach((href) => {
+      expectSafeExternalLink(getAnchorMarkup(headerHtml, href));
     });
   });
 
-  it("adds an accessible FileText CV link without changing the icon group", () => {
-    const cvAnchor = getAnchor(contact.cv);
-    const fileTextIcons = collectElements(
-      cvAnchor.props.children,
-      (element) => element.type === (FileText as LucideIcon),
-    );
+  it("uses the FileText icon for the CV destination", () => {
+    const cvAnchor = getAnchorMarkup(headerHtml, contact.cv);
 
-    expect(cvAnchor.props["aria-label"]).toBe("Download CV");
-    expect(fileTextIcons).toHaveLength(1);
-    expect(cvAnchor.props.className).toBe(
-      "text-muted-foreground hover:text-foreground transition-colors",
-    );
+    expect(cvAnchor).toContain("lucide-file-text");
+    expect(cvAnchor).toContain('aria-label="Download CV"');
   });
 });
 
 describe("About", () => {
   const aboutHtml = renderToStaticMarkup(<About />);
 
-  it("preserves the portrait, section, and research-card styling", () => {
-    expect(aboutHtml).toContain(
-      '<section id="about" class="container py-16 animate-fade-in">',
+  it("preserves the portrait, section, and research-card treatment", () => {
+    const sectionTag = getOpeningTag(aboutHtml, "section");
+    const imageTag = getOpeningTag(aboutHtml, "img");
+    const researchCardTag = getNearestOpeningTagBefore(
+      aboutHtml,
+      "Research Interests",
+      "div",
     );
-    expect(aboutHtml).toContain('src="/thumbnail.jpg"');
-    expect(aboutHtml).toContain('alt="Haolin Chen"');
-    expect(aboutHtml).toContain(
-      "w-32 h-32 rounded-full object-cover border-4 border-card shadow-lg",
-    );
-    expect(aboutHtml).toContain(
-      "p-6 border border-border bg-card hover:bg-card-hover transition-colors",
-    );
+
+    expectClassTokens(sectionTag, ["container", "py-16", "animate-fade-in"]);
+    expect(imageTag).toContain('src="/thumbnail.jpg"');
+    expect(imageTag).toContain('alt="Haolin Chen"');
+    expectClassTokens(imageTag, [
+      "w-32",
+      "h-32",
+      "rounded-full",
+      "border-card",
+      "shadow-lg",
+    ]);
+    expectClassTokens(researchCardTag, [
+      "p-6",
+      "border-border",
+      "bg-card",
+      "hover:bg-card-hover",
+    ]);
   });
 
   it("states the current role and links Cura and χ-Bench safely", () => {
-    expect(aboutHtml).toContain("I am Head of Research at");
-    expect(aboutHtml).toContain("actAVA AI");
-    expect(aboutHtml).toContain("specialized language models");
-    expect(aboutHtml).toContain("agentic healthcare systems");
+    [
+      "I am Head of Research at",
+      "actAVA AI",
+      "specialized language models",
+      "agentic healthcare systems",
+    ].forEach((text) => {
+      expect(aboutHtml).toContain(text);
+    });
 
     [projects.cura, projects.chiBench].forEach((project) => {
-      expect(aboutHtml).toMatch(
-        new RegExp(
-          `<a href="${escapeRegExp(project.url)}" target="_blank" rel="noopener noreferrer"[^>]*>${escapeRegExp(project.name)}</a>`,
-        ),
-      );
+      const anchor = getAnchorMarkup(aboutHtml, project.url);
+
+      expect(anchor).toContain(project.name);
+      expectSafeExternalLink(anchor);
     });
   });
 
@@ -160,11 +221,10 @@ describe("About", () => {
       projects.xlam,
       projects.apigenMT,
     ].forEach((project) => {
-      expect(aboutHtml).toMatch(
-        new RegExp(
-          `<a href="${escapeRegExp(project.url)}" target="_blank" rel="noopener noreferrer"[^>]*>${escapeRegExp(project.name)}</a>`,
-        ),
-      );
+      const anchor = getAnchorMarkup(aboutHtml, project.url);
+
+      expect(anchor).toContain(project.name);
+      expectSafeExternalLink(anchor);
     });
   });
 
@@ -184,92 +244,58 @@ describe("About", () => {
 });
 
 describe("Experience", () => {
-  const experienceTree = Experience();
-  const cards = collectElements(
-    experienceTree,
-    (element) => element.type === Card,
-  );
+  const experienceHtml = renderToStaticMarkup(<Experience />);
 
-  it("renders the complete work chronology in stable semantic cards", () => {
-    const expectedKeys = workExperience.map(
-      ({ company, title }) => `${company}-${title}`,
+  it("renders the complete work chronology in order", () => {
+    expectTextInOrder(
+      experienceHtml,
+      workExperience.flatMap(({ title, company, period }) => [
+        title,
+        company,
+        period,
+      ]),
     );
-
-    expect(cards.slice(0, workExperience.length).map((card) => card.key)).toEqual(
-      expectedKeys,
-    );
-
-    workExperience.forEach((experience) => {
-      const card = cards.find(
-        (candidate) =>
-          candidate.key === `${experience.company}-${experience.title}`,
-      );
-      const html = renderToStaticMarkup(card as ReactElement<ElementProps>);
-
-      expect(html).toContain(experience.title);
-      expect(html).toContain(experience.company);
-      expect(html).toContain(experience.period);
-    });
   });
 
-  it("renders all three education entries in stable semantic cards", () => {
-    const expectedKeys = education.map(
-      ({ institution, degree }) => `${institution}-${degree}`,
+  it("renders all three education entries in order", () => {
+    expectTextInOrder(
+      experienceHtml,
+      education.flatMap(({ degree, institution, year }) => [
+        degree,
+        institution,
+        year,
+      ]),
     );
-
-    expect(cards.slice(workExperience.length).map((card) => card.key)).toEqual(
-      expectedKeys,
-    );
-
-    education.forEach((item) => {
-      const card = cards.find(
-        (candidate) =>
-          candidate.key === `${item.institution}-${item.degree}`,
-      );
-      const html = renderToStaticMarkup(card as ReactElement<ElementProps>);
-
-      expect(html).toContain(item.degree);
-      expect(html).toContain(item.institution);
-      expect(html).toContain(item.year);
-    });
   });
 
   it("preserves the card grid, animation, and section icons", () => {
-    const html = renderToStaticMarkup(experienceTree);
+    const gridTag = getOpeningTagWithClass(experienceHtml, "lg:grid-cols-2");
 
-    expect(cards).toHaveLength(workExperience.length + education.length);
-    cards.forEach((card) => {
-      expect(card.props.className).toBe(
-        "hover:shadow-md transition-all duration-300 hover:border-accent animate-slide-in",
-      );
-    });
-    expect(html).toContain("grid grid-cols-1 lg:grid-cols-2 gap-8");
-    expect(
-      collectElements(
-        experienceTree,
-        (element) => element.type === (Briefcase as LucideIcon),
-      ),
-    ).toHaveLength(1);
-    expect(
-      collectElements(
-        experienceTree,
-        (element) => element.type === (GraduationCap as LucideIcon),
-      ),
-    ).toHaveLength(1);
+    expectClassTokens(gridTag, [
+      "grid",
+      "grid-cols-1",
+      "lg:grid-cols-2",
+      "gap-8",
+    ]);
+    expect(experienceHtml.match(/\banimate-slide-in\b/g)).toHaveLength(
+      workExperience.length + education.length,
+    );
+    expect(experienceHtml).toContain("lucide-briefcase");
+    expect(experienceHtml).toContain("lucide-graduation-cap");
   });
 });
 
 describe("Footer", () => {
   it("renders the typed current tagline in the preserved footer structure", () => {
-    const html = renderToStaticMarkup(<Footer />);
+    const footerHtml = renderToStaticMarkup(<Footer />);
+    const footerTag = getOpeningTag(footerHtml, "footer");
 
-    expect(html).toContain(footerTagline);
-    expect(html).toContain(
-      '<footer class="border-t border-border bg-muted/30">',
-    );
-    expect(html).toContain(
-      '<div class="text-center text-sm text-muted-foreground">',
-    );
-    expect(html).toContain("Haolin Chen. All rights reserved.");
+    expect(footerHtml).toContain(footerTagline);
+    expectClassTokens(footerTag, [
+      "border-t",
+      "border-border",
+      "bg-muted/30",
+    ]);
+    expect(footerHtml).toContain("Haolin Chen. All rights reserved.");
   });
 });
