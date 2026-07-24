@@ -7,6 +7,8 @@ export interface ResourceLink {
   kind: ResourceKind;
 }
 
+export type NonEmptyArray<T> = [T, ...T[]];
+
 export interface Publication {
   title: string;
   authors: string;
@@ -14,7 +16,7 @@ export interface Publication {
   venue: string;
   type: string;
   kind: PublicationKind;
-  links: ResourceLink[];
+  links: NonEmptyArray<ResourceLink>;
 }
 
 export interface Project {

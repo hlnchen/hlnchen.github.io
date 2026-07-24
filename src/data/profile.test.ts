@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, expectTypeOf, it } from "vitest";
 
 import {
   contact,
@@ -8,6 +8,7 @@ import {
   publications,
   workExperience,
   type Publication,
+  type ResourceLink,
 } from "./profile";
 
 const expectedPublications = [
@@ -187,6 +188,15 @@ const expectedPublications = [
 ] satisfies Publication[];
 
 describe("profile data", () => {
+  it("types every publication as having at least one resource link", () => {
+    type NonEmptyResourceLinks = [ResourceLink, ...ResourceLink[]];
+
+    expectTypeOf(publications[0].links).toMatchTypeOf<NonEmptyResourceLinks>();
+    publications.forEach((publication) => {
+      expect(publication.links.length).toBeGreaterThan(0);
+    });
+  });
+
   it("preserves the exact publication count", () => {
     expect(publications).toHaveLength(expectedPublications.length);
   });
