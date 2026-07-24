@@ -283,7 +283,7 @@ describe("About", () => {
 
   it("states the current role and links Cura and χ-Bench safely", () => {
     [
-      "I am Head of Research at",
+      "I am Founding Research Scientist at",
       "actAVA AI",
       "specialized language models",
       "agentic healthcare systems",

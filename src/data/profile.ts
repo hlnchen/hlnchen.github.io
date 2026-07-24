@@ -241,7 +241,7 @@ export const publications: Publication[] = [
 
 export const workExperience = [
   {
-    title: "Head of Research",
+    title: "Founding Research Scientist",
     company: "actAVA AI",
     period: "Mar 2026 - Present",
   },
@@ -259,11 +259,6 @@ export const workExperience = [
     title: "Data Scientist",
     company: "Outreach.io",
     period: "Aug 2022 - Sep 2023",
-  },
-  {
-    title: "Data Scientist Intern",
-    company: "Outreach.io",
-    period: "Jul 2021 - Dec 2021",
   },
 ] as const;
 

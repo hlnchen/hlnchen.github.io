@@ -243,7 +243,7 @@ describe("profile data", () => {
   it("preserves the exact work chronology", () => {
     expect(workExperience).toEqual([
       {
-        title: "Head of Research",
+        title: "Founding Research Scientist",
         company: "actAVA AI",
         period: "Mar 2026 - Present",
       },
@@ -261,12 +261,7 @@ describe("profile data", () => {
         title: "Data Scientist",
         company: "Outreach.io",
         period: "Aug 2022 - Sep 2023",
-      },
-      {
-        title: "Data Scientist Intern",
-        company: "Outreach.io",
-        period: "Jul 2021 - Dec 2021",
-      },
+      }
     ]);
   });
 
